@@ -1,0 +1,154 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+input[type=text]
+{
+	width: 96%;
+	margin: 2%;
+	border-radius: 3px;
+	border: 1px solid lightgray;
+}
+
+input[type=text]:hover
+{
+	border: 1px solid gray;
+}
+
+button
+{
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px 1px gray;
+}
+
+button:hover
+{
+	background-color: lightgray;
+	cursor: pointer;
+}
+
+#inputSection input[type=button]:hover
+{
+	background-color: lightgray;
+	cursor: pointer;
+}
+
+#debtCollectorApp 
+{
+	background-color: lightgray;
+	padding: 2.5%;
+	width: 50%;
+	margin: 5% auto;
+	font-size: 10pt;
+	font-family: arial;	
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+#header
+{
+	background-color: gray;
+	color: white;
+	padding: 1%;
+}
+
+#inputSection
+{
+	float:left;
+	width: 21%;
+	padding: 2%;
+}
+
+#inputSection button
+{
+	width: 50%;
+	padding: 2%;
+	margin-top: 5%;
+}
+
+#dataSection
+{
+	float:right;
+	width: 71%;
+	padding: 2%;
+}
+
+#dataSection table
+{
+	background-color: rgb( 230, 230, 230);
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#dataSection td
+{
+	padding: 1%;
+	border-right: 1px solid rgb( 200, 200, 200);
+	vertical-align: top;
+}
+
+.selectRow:hover
+{
+	background-color: lightblue;
+	cursor: pointer;
+}
+
+#dataSection th
+{
+	padding: 1%;
+	color: gray;
+	border-right: 1px solid rgb( 200, 200, 200);
+	background-color: white;
+}
+
+#footer
+{
+	text-align: center;
+	color: white;
+	background-color: gray;
+	opacity: 0.6;
+	position: absolute;
+	padding: .5%;
+	left:0;
+	right:0;
+	bottom: 0;
+}
+
+.money
+{
+	text-align: right;
+}
+
+.log
+{
+	list-style-position: inside;
+	font-style: italic;
+	width: 50%;
+}
+
+.name
+{
+	text-transform: capitalize;
+}
+
+.adjustmentsButton
+{
+	margin: 1%;
+	width: 46%;
+}
+
+.informative
+{
+	margin-top: 5%;
+	color: red;
+	font-style: italic;
+}
+
+.opaque
+{
+	background-color: lightgray;
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+
+<html>
+
+	<head>
+
+		<title>Debt Tracker v1.0</title>
+		<link rel="stylesheet" href="css/style.css"/>
+
+	</head>
+
+	<body>
+
+		<script type="text/x-handlebars" data-template-name="Debttracker">
+
+		<section id="debtCollectorApp">
+
+			<div id="header">
+
+				<h1>Debt Tracker App</h1>
+
+			</div>
+
+			<section id="inputSection">
+
+				{{input type="text" value=newDebtorName placeholder="Name" action="addNewDebt"}}
+				{{input type="text" value=newDebtBalance placeholder="Debt"}}
+				{{input type="text" value=newDebtDate placeholder="Date"}}
+				<button {{action "addNewDebt"}}>Add</button>
+
+			</section>
+
+			<section id="dataSection">
+
+				<table id="debtTable">
+
+					<thead id="debtTableHeader">
+
+						<th>Name</th>
+						<th>Debt</th>
+						<th>Logs</th>
+						<th class="opaque"></th>
+
+					<thead>
+
+					<tbody id="debtTableBody">
+
+						{{#each itemController="debttrackerinstance"}}
+
+							<tr class="selectRow" {{action "enterEditMode" on="doubleClick"}}>
+
+								{{#if isEditMode}}
+
+									<td class="name">{{input type="text" value=name action="saveName"}}</td>
+									<td class="money">
+
+										{{input type="text" value=cashAdjustment placeholder="Adjustment"}}
+										{{input type="text" value=adjustmentDate placeholder="Date"}}
+										<button class="adjustmentsButton" {{ action "saveCredit" on="click"}}>Credit</button>
+										<button class="adjustmentsButton"  {{ action "saveDebit" on="click"}}>Debit</button>
+										<span class="informative">Current Balance: {{debt}}</span>
+
+									</td>
+
+								{{else}}
+
+									<td class="name">{{name}}</td>
+									<td class="money">{{debt}}</td>
+
+								{{/if}}
+
+									<td class="log">
+
+										<ul>
+
+											{{#each logs}}
+
+												<li>{{this}}</li>
+
+											{{/each}}
+
+										</ul>
+
+									</td>
+									<td class="opaque"><button {{action "deleteRecord" on="click"}}>X</button></td>
+
+							</tr>
+
+						{{/each}}
+						
+					</tbody>
+
+				</table>
+
+			</section>
+
+			<div id="footer">
+
+				<span>Copyright 2015</span>
+
+			</div>
+
+		</section>
+
+		</script>
+
+		<script src="js/lib/jquery-1.10.2.min.js"></script>
+		<script src="js/lib/handlebars-1.0.0.js"></script>
+		<script src="js/lib/ember.js"></script>
+		<script src="js/lib/ember-data.js"></script>
+		<script src="js/application.js"></script>
+		<script src="js/router.js"></script>
+		<script src="js/model/debtor.js"></script>
+		<script src="js/controller/debttracker_controller.js"></script>
+		<script src="js/controller/debttrackerinstance_controller.js"></script>
+		<script src="js/view/debttrackertextfield_view.js"></script>
+				
+	</body>
+
+</html>
