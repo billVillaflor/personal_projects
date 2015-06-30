@@ -1,31 +1,40 @@
+Debttracker.TRANSACTION_TYPE_DEBIT = 0;
+Debttracker.TRANSACTION_TYPE_CREDIT = 1;
+
 Debttracker.Debtor = DS.Model.extend(
 {
-	name: DS.attr( 'string' ),
-	debt: DS.attr( 'number' ),
-	logs: DS.attr()
+	firstName: DS.attr( 'string', { defaultValue: 'ANONYMOUS'} ),
+	lastName: DS.attr( 'string', { defaultValue: 'ANONYMOUS'} ),
+	fullName: function()
+	{
+		return this.get( 'firstName' ) + " " + this.get( 'lastName' );
+	}.property( 'firstName', 'lastName' ),
+	debt: DS.attr( 'number', { defaultValue: 0 } ),
+	transaction: DS.hasMany( 'transaction' )
 });
 
+Debttracker.Transaction = DS.Model.extend(
+{
+	type: DS.attr( 'number', { defaultValue: Debttracker.TRANSACTION_TYPE_DEBIT } ),
+	date: DS.attr( 'date', { defaultValue: new Date() } ),
+	amount: DS.attr( 'number' ),
+	debtor: DS.belongsTo( 'debtor' )
+});
+
+Debttracker.Transaction.FIXTURES = [];
 
 Debttracker.Debtor.FIXTURES =
 [
 	{
 		id: 1,
-		name: "bill villaflor",
-		debt: 500,
-		logs: 
-		[ 
-			"CREDITED 500.00 on 01/28/1994",
-			"CREDITED 500.00 on 01/28/1994",
-		]
+		firstName: 'bill',
+		lastName: 'villaflor',
+		debt: 500
 	},
 	{
 		id: 2,
-		name: "Irah Cabangon",
-		debt: 1000,
-		logs: 
-		[ 
-			"CREDITED 500.00 on 01/28/1994",
-			"DEBITED 500.00 on 01/28/1994"
-		]
+		firstName: 'irah',
+		lastName: 'cabangon',
+		debt: 1000
 	}
 ];

@@ -23,9 +23,10 @@
 
 			<section id="inputSection">
 
-				{{input type="text" value=newDebtorName placeholder="Name" action="addNewDebt"}}
-				{{input type="text" value=newDebtBalance placeholder="Debt"}}
-				{{input type="text" value=newDebtDate placeholder="Date"}}
+				{{input type="text" value=newFirstName placeholder="First Name" action="addNewDebt"}}
+				{{input type="text" value=newLastName placeholder="Last Name" action="addNewDebt"}}
+				{{input type="text" value=newDebt placeholder="Debt"}}
+				{{input type="text" value=newDate placeholder="Date"}}
 				<button {{action "addNewDebt"}}>Add</button>
 
 			</section>
@@ -51,7 +52,12 @@
 
 								{{#if isEditMode}}
 
-									<td class="name">{{input type="text" value=name action="saveName"}}</td>
+									<td class="name">
+
+										{{input type="text" value=firstName action="saveName" placeholder="First Name"}}
+										{{input type="text" value=lastName action="saveName" placeholder="Last Name"}}
+
+									</td>
 									<td class="money">
 
 										{{input type="text" value=cashAdjustment placeholder="Adjustment"}}
@@ -64,7 +70,7 @@
 
 								{{else}}
 
-									<td class="name">{{name}}</td>
+									<td class="name">{{fullName}}</td>
 									<td class="money">{{debt}}</td>
 
 								{{/if}}
@@ -73,7 +79,7 @@
 
 										<ul>
 
-											{{#each logs}}
+											{{#each getLogs}}
 
 												<li>{{this}}</li>
 
@@ -109,8 +115,9 @@
 		<script src="js/lib/ember.js"></script>
 		<script src="js/lib/ember-data.js"></script>
 		<script src="js/application.js"></script>
-		<script src="js/router.js"></script>
 		<script src="js/model/debtor.js"></script>
+		<script src="js/route/debttracker_route.js"></script>
+		<script src="js/router.js"></script>
 		<script src="js/controller/debttracker_controller.js"></script>
 		<script src="js/controller/debttrackerinstance_controller.js"></script>
 		<script src="js/view/debttrackertextfield_view.js"></script>

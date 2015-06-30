@@ -10,25 +10,37 @@ Debttracker.DebttrackerController = Ember.ArrayController.extend(
 
 		addNewRecord: function()
 		{
-			var newDebtorName = this.get( "newDebtorName" );
-			var newDebtBalance = this.get( "newDebtBalance" );
-			var newDebtDate = this.get( "newDebtDate" );
+			var newFirstName = this.get( "newFirstName" );
+			var newLastName = this.get( "newLastName" );
+			var newDate = this.get( "newDate" );
+			var newDebt = this.get( "newDebt" );
+
+			var transaction = this.store.createRecord( 'transaction',
+			{
+				type: Debttracker.TRANSACTION_TYPE_DEBIT,
+				amount: newDebt,
+				date: newDate
+			});
+
+			transaction.save();
 
 			var debtor = this.store.createRecord( 'debtor',
 			{
-				name: newDebtorName,
-				debt: newDebtBalance,
-				logs: ["DEBITED " + newDebtBalance + " on " + newDebtDate]
+				firstName: newFirstName,
+				lastName: newLastName,
+				debt: newDebt
 			});
 
+			debtor.get( 'transaction' ).addObject( transaction );
 			debtor.save();
 		},
 
 		clearFields : function()
 		{
-			this.set( "newDebtorName", "" );
-			this.set( "newDebtBalance", "" );
-			this.set( "newDebtDate", "" );
+			this.set( "newFirstName", "" );
+			this.set( "newLastName", "" );
+			this.set( "newDebt", "" );
+			this.set( "newDate", "" );
 		}
 	},
 });

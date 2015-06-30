@@ -18,7 +18,15 @@ Debttracker.DebttrackerinstanceController = Ember.ObjectController.extend(
 
 			debt = debt - cashAdjustment;
 
-			model.get( "logs" ).push( "CREDITED " + cashAdjustment + " on " + adjustmentDate );
+			var transaction = this.store.createRecord( 'transaction',
+			{
+				type: Debttracker.TRANSACTION_TYPE_CREDIT,
+				amount: cashAdjustment,
+				date: adjustmentDate
+			});
+
+			transaction.save();
+			model.get( "transaction" ).addObject( transaction );
 			model.set( "debt", debt );
 			model.save();
 
@@ -34,7 +42,16 @@ Debttracker.DebttrackerinstanceController = Ember.ObjectController.extend(
 			var debt = model.get( "debt" );
 
 			debt = debt + cashAdjustment;
-			model.get( "logs" ).push( "DEBITED " + cashAdjustment + " on " + adjustmentDate );
+			
+			var transaction = this.store.createRecord( 'transaction',
+			{
+				type: Debttracker.TRANSACTION_TYPE_DEBIT,
+				amount: cashAdjustment,
+				date: adjustmentDate
+			});
+
+			transaction.save();
+			model.get( "transaction" ).addObject( transaction );
 			model.set( "debt", debt );
 			model.save();
 
@@ -61,5 +78,35 @@ Debttracker.DebttrackerinstanceController = Ember.ObjectController.extend(
 		}
 	},
 
-	isEditMode: false
+	isEditMode: false,
+
+	getLogs: function()
+	{
+		var model = this.get( "model" );
+		var transactions = model.get( "transaction" );
+		var logs = [];
+
+		transactions.forEach
+		(
+			function( item )
+			{
+				var log = "";
+
+				if( item.get( "type" ) == Debttracker.TRANSACTION_TYPE_DEBIT )
+				{
+					log += "Debited ";
+				}
+				else
+				{
+					log += "Credited ";
+				}
+
+				log += item.get( "amount" ) + " Php. ";
+				log += "on " + item.get( "date" );
+				logs.push( log );
+			}
+		)
+
+		return logs;
+	}.property( "isEditMode" )
 });
